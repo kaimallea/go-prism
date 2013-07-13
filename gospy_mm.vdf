@@ -1,0 +1,5 @@
+"Metamod Plugin"
+{
+	"alias"		"gospy"
+	"file"		"addons/gospy_mm"
+}
