@@ -98,5 +98,5 @@ const char *GoSpyPlugin::GetName()
 
 const char *GoSpyPlugin::GetURL()
 {
-	return "https://github.com/csgo-data/gospy";
+	return "https://github.com/csgo-data/go-spy";
 }
