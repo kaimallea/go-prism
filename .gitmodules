@@ -1,0 +1,6 @@
+[submodule "mmsource-1.9"]
+	path = mmsource-1.9
+	url = https://github.com/csgo-data/mmsource-1.9.git
+[submodule "hl2sdk-csgo"]
+	path = hl2sdk-csgo
+	url = https://github.com/csgo-data/hl2sdk-csgo.git
