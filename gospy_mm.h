@@ -11,6 +11,8 @@
 #define _INCLUDE_METAMOD_SOURCE_GOSPY_PLUGIN_H_
 
 #include <ISmmPlugin.h>
+#include <igameevents.h>
+#include <iplayerinfo.h>
 
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
