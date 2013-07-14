@@ -37,19 +37,19 @@ bool GoSpyPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, b
 
 	META_LOG(g_PLAPI, "Starting plugin.");
 
-	SH_ADD_HOOK_STATICFUNC(IServerGameDLL, ServerActivate, server, Hook_ServerActivate, true);
+	SH_ADD_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoSpyPlugin::Hook_ServerActivate, true);
 
 	return true;
 }
 
 bool GoSpyPlugin::Unload(char *error, size_t maxlen)
 {
-	SH_REMOVE_HOOK_STATICFUNC(IServerGameDLL, ServerActivate, server, Hook_ServerActivate, true);
+	SH_REMOVE_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoSpyPlugin::Hook_ServerActivate, true);
 
 	return true;
 }
 
-void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
+void GoSpyPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
 {
 	META_LOG(g_PLAPI, "ServerActivate() called: edictCount = %d, clientMax = %d", edictCount, clientMax);
 }

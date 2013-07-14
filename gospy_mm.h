@@ -27,6 +27,8 @@ public:
 	bool Unpause(char *error, size_t maxlen);
 	void AllPluginsLoaded();
 public:
+	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
+public:
 	const char *GetAuthor();
 	const char *GetName();
 	const char *GetDescription();
@@ -36,8 +38,6 @@ public:
 	const char *GetDate();
 	const char *GetLogTag();
 };
-
-void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
 
 extern GoSpyPlugin g_GoSpyPlugin;
 
