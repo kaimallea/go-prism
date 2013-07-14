@@ -28,6 +28,7 @@ public:
 	void AllPluginsLoaded();
 public:
 	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
+	bool Hook_FireEvent(IGameEvent *event, bool bDontBroadcast);
 public:
 	const char *GetAuthor();
 	const char *GetName();
