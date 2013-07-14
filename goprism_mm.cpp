@@ -35,6 +35,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 	META_LOG(g_PLAPI, "Starting plugin.");
 
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
+	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), true);
 
 	return true;
 }
@@ -42,6 +43,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 {
 	SH_REMOVE_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
+	SH_REMOVE_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), true);
 
 	return true;
 }
@@ -49,6 +51,13 @@ bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
 {
 	META_LOG(g_PLAPI, "ServerActivate() called: edictCount = %d, clientMax = %d", edictCount, clientMax);
+}
+
+bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
+{
+	META_LOG(g_PLAPI, "FireEvent() called: event = %s", event->GetName());
+
+	return true;
 }
 
 void GoPrismPlugin::AllPluginsLoaded()
