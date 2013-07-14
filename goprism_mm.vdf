@@ -1,0 +1,5 @@
+"Metamod Plugin"
+{
+	"alias"		"goprism"
+	"file"		"addons/goprism_mm"
+}

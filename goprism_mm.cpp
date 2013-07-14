@@ -1,19 +1,19 @@
 /**
  * vim: set ts=4 sw=4 tw=99 noet :
  * ======================================================
- * Metamod:Source GoSpy Plugin
+ * Metamod:Source GoPrism Plugin
  * Written by Kai Mallea
  * ======================================================
  *
  */
 
 #include <stdio.h>
-#include "gospy_mm.h"
+#include "goprism_mm.h"
 
 SH_DECL_HOOK3_void(IServerGameDLL, ServerActivate, SH_NOATTRIB, 0, edict_t *, int, int);
 SH_DECL_HOOK2(IGameEventManager2, FireEvent, SH_NOATTRIB, 0, bool, IGameEvent *, bool);
 
-GoSpyPlugin g_GoSpyPlugin;
+GoPrismPlugin g_GoPrismPlugin;
 IVEngineServer *engine = NULL;
 IGameEventManager2 *gameevents = NULL;
 IServerGameDLL *server = NULL;
@@ -23,8 +23,8 @@ IPlayerInfoManager *playerinfomanager = NULL;
 
 CGlobalVars *gpGlobals = NULL;
 
-PLUGIN_EXPOSE(GoSpyPlugin, g_GoSpyPlugin);
-bool GoSpyPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
+PLUGIN_EXPOSE(GoPrismPlugin, g_GoPrismPlugin);
+bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
 {
 	PLUGIN_SAVEVARS();
 
@@ -37,76 +37,76 @@ bool GoSpyPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, b
 
 	META_LOG(g_PLAPI, "Starting plugin.");
 
-	SH_ADD_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoSpyPlugin::Hook_ServerActivate, true);
+	SH_ADD_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoPrismPlugin::Hook_ServerActivate, true);
 
 	return true;
 }
 
-bool GoSpyPlugin::Unload(char *error, size_t maxlen)
+bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 {
-	SH_REMOVE_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoSpyPlugin::Hook_ServerActivate, true);
+	SH_REMOVE_HOOK_MEMFUNC(IServerGameDLL, ServerActivate, server, this, &GoPrismPlugin::Hook_ServerActivate, true);
 
 	return true;
 }
 
-void GoSpyPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
+void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax)
 {
 	META_LOG(g_PLAPI, "ServerActivate() called: edictCount = %d, clientMax = %d", edictCount, clientMax);
 }
 
-void GoSpyPlugin::AllPluginsLoaded()
+void GoPrismPlugin::AllPluginsLoaded()
 {
 	/* This is where we'd do stuff that relies on the mod or other plugins 
 	 * being initialized (for example, cvars added and events registered).
 	 */
 }
 
-bool GoSpyPlugin::Pause(char *error, size_t maxlen)
+bool GoPrismPlugin::Pause(char *error, size_t maxlen)
 {
 	return true;
 }
 
-bool GoSpyPlugin::Unpause(char *error, size_t maxlen)
+bool GoPrismPlugin::Unpause(char *error, size_t maxlen)
 {
 	return true;
 }
 
-const char *GoSpyPlugin::GetLicense()
+const char *GoPrismPlugin::GetLicense()
 {
 	return "TBD";
 }
 
-const char *GoSpyPlugin::GetVersion()
+const char *GoPrismPlugin::GetVersion()
 {
 	return "0.0.1";
 }
 
-const char *GoSpyPlugin::GetDate()
+const char *GoPrismPlugin::GetDate()
 {
 	return __DATE__;
 }
 
-const char *GoSpyPlugin::GetLogTag()
+const char *GoPrismPlugin::GetLogTag()
 {
-	return "GOSPY";
+	return "GOPRISM";
 }
 
-const char *GoSpyPlugin::GetAuthor()
+const char *GoPrismPlugin::GetAuthor()
 {
 	return "Kai Mallea";
 }
 
-const char *GoSpyPlugin::GetDescription()
+const char *GoPrismPlugin::GetDescription()
 {
 	return "Capture CS:GO gameplay data";
 }
 
-const char *GoSpyPlugin::GetName()
+const char *GoPrismPlugin::GetName()
 {
-	return "GoSpy";
+	return "GoPrism";
 }
 
-const char *GoSpyPlugin::GetURL()
+const char *GoPrismPlugin::GetURL()
 {
-	return "https://github.com/csgo-data/go-spy";
+	return "https://github.com/csgo-data/go-prism";
 }

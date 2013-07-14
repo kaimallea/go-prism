@@ -1,14 +1,14 @@
 /**
  * vim: set ts=4 sw=4 tw=99 noet :
  * ======================================================
- * Metamod:Source GoSpy Plugin
+ * Metamod:Source GoPrism Plugin
  * Written by Kai Mallea
  * ======================================================
  *
  */
 
-#ifndef _INCLUDE_METAMOD_SOURCE_GOSPY_PLUGIN_H_
-#define _INCLUDE_METAMOD_SOURCE_GOSPY_PLUGIN_H_
+#ifndef _INCLUDE_METAMOD_SOURCE_GOPRISM_PLUGIN_H_
+#define _INCLUDE_METAMOD_SOURCE_GOPRISM_PLUGIN_H_
 
 #include <ISmmPlugin.h>
 #include <igameevents.h>
@@ -18,7 +18,7 @@
 #define snprintf _snprintf
 #endif
 
-class GoSpyPlugin : public ISmmPlugin
+class GoPrismPlugin : public ISmmPlugin
 {
 public:
 	bool Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late);
@@ -39,8 +39,8 @@ public:
 	const char *GetLogTag();
 };
 
-extern GoSpyPlugin g_GoSpyPlugin;
+extern GoPrismPlugin g_GoPrismPlugin;
 
 PLUGIN_GLOBALVARS();
 
-#endif //_INCLUDE_METAMOD_SOURCE_GOSPY_PLUGIN_H_
+#endif //_INCLUDE_METAMOD_SOURCE_PRISM_PLUGIN_H_

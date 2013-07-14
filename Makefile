@@ -18,8 +18,8 @@ MMSOURCE19 = mmsource-1.9
 ### EDIT BELOW FOR OTHER PROJECTS ###
 #####################################
 
-PROJECT = gospy_mm
-OBJECTS = gospy_mm.cpp
+PROJECT = goprism_mm
+OBJECTS = goprism_mm.cpp
 
 ##############################################
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###
