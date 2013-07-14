@@ -55,9 +55,7 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-	META_LOG(g_PLAPI, "FireEvent() called: event = %s", event->GetName());
-
-	return true;
+	RETURN_META_VALUE(MRES_IGNORED, true);
 }
 
 void GoPrismPlugin::AllPluginsLoaded()
