@@ -55,8 +55,30 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
+	if (event) {
+		const char *eventName = event->GetName();
+		if ( strcmp(eventName, "bomb_beginplant") == 0 ) GoPrismPlugin::OnBombBeginPlant(event);
+		if ( strcmp(eventName, "bomb_planted") == 0 ) GoPrismPlugin::OnBombPlanted(event);
+		if ( strcmp(eventName, "bomb_defused") == 0 ) GoPrismPlugin::OnBombDefused(event);
+		if ( strcmp(eventName, "bomb_exploded") == 0 ) GoPrismPlugin::OnBombExploded(event);
+		if ( strcmp(eventName, "bomb_begindefuse") == 0 ) GoPrismPlugin::OnBombBeginDefuse(event);
+		if ( strcmp(eventName, "bomb_abortdefuse") == 0 ) GoPrismPlugin::OnBombAbortDefuse(event);
+	}
+
 	RETURN_META_VALUE(MRES_IGNORED, true);
 }
+
+void OnBombBeginPlant(IGameEvent *event) {}
+
+void OnBombPlanted(IGameEvent *event) {}
+
+void OnBombDefused(IGameEvent *event) {}
+
+void OnBombExploded(IGameEvent *event) {}
+
+void OnBombBeginDefuse(IGameEvent *event) {}
+
+void OnBombAbortDefuse(IGameEvent *event) {}
 
 void GoPrismPlugin::AllPluginsLoaded()
 {

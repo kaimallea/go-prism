@@ -30,6 +30,13 @@ public:
 	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
 	bool Hook_FireEvent(IGameEvent *event, bool bDontBroadcast);
 public:
+	void OnBombBeginPlant(IGameEvent *event);
+	void OnBombPlanted(IGameEvent *event);
+	void OnBombDefused(IGameEvent *event);
+	void OnBombExploded(IGameEvent *event);
+	void OnBombBeginDefuse(IGameEvent *event);
+	void OnBombAbortDefuse(IGameEvent *event);
+public:
 	const char *GetAuthor();
 	const char *GetName();
 	const char *GetDescription();
