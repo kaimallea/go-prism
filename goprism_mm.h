@@ -13,6 +13,7 @@
 #include <ISmmPlugin.h>
 #include <igameevents.h>
 #include <iplayerinfo.h>
+#include "eventmap.h"
 
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
@@ -30,6 +31,7 @@ public:
 	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
 	bool Hook_FireEvent(IGameEvent *event, bool bDontBroadcast);
 public:
+	void OnPlayerDeath(IGameEvent *event);
 	void OnBombBeginPlant(IGameEvent *event);
 	void OnBombPlanted(IGameEvent *event);
 	void OnBombDefused(IGameEvent *event);

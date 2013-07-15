@@ -19,6 +19,7 @@ IGameEventManager2 *gameevents = NULL;
 IServerGameDLL *server = NULL;
 IPlayerInfoManager *playerinfomanager = NULL;
 CGlobalVars *gpGlobals = NULL;
+event_map_t FireEventMap;
 
 PLUGIN_EXPOSE(GoPrismPlugin, g_GoPrismPlugin);
 bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
@@ -36,6 +37,8 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
 	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
+
+    FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
 
 	return true;
 }
@@ -55,17 +58,17 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-	if (event) {
-		const char *eventName = event->GetName();
-		if ( strcmp(eventName, "bomb_beginplant") == 0 ) GoPrismPlugin::OnBombBeginPlant(event);
-		if ( strcmp(eventName, "bomb_planted") == 0 ) GoPrismPlugin::OnBombPlanted(event);
-		if ( strcmp(eventName, "bomb_defused") == 0 ) GoPrismPlugin::OnBombDefused(event);
-		if ( strcmp(eventName, "bomb_exploded") == 0 ) GoPrismPlugin::OnBombExploded(event);
-		if ( strcmp(eventName, "bomb_begindefuse") == 0 ) GoPrismPlugin::OnBombBeginDefuse(event);
-		if ( strcmp(eventName, "bomb_abortdefuse") == 0 ) GoPrismPlugin::OnBombAbortDefuse(event);
+    std::string ename = event->GetName();
+	if (event && FireEventMap.count(ename)) {
+	    (g_GoPrismPlugin.*FireEventMap[ename])(event);
 	}
 
 	RETURN_META_VALUE(MRES_IGNORED, true);
+}
+
+void GoPrismPlugin::OnPlayerDeath(IGameEvent *event)
+{
+    META_CONPRINTF("player_death fired: victim = %d, attacker = %d\n", event->GetInt("userid"), event->GetInt("attacker"));
 }
 
 void OnBombBeginPlant(IGameEvent *event) {}
