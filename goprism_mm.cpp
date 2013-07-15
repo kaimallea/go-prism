@@ -58,9 +58,8 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-	std::string ename = event->GetName();
-	if (event && FireEventMap.count(ename)) {
-	    (g_GoPrismPlugin.*FireEventMap[ename])(event);
+	if (event && FireEventMap.count(event->GetName())) {
+	    (g_GoPrismPlugin.*FireEventMap[event->GetName()])(event);
 	}
 
 	RETURN_META_VALUE(MRES_IGNORED, true);

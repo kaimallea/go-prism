@@ -16,6 +16,6 @@
 class GoPrismPlugin;
 
 typedef void (GoPrismPlugin::*callback_func_t)(IGameEvent *event);
-typedef std::map<std::string, callback_func_t> event_map_t;
+typedef std::map<const std::string, callback_func_t> event_map_t;
 
 #endif // _INCLUDE_EVENTMAP_H_
