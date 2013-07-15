@@ -38,7 +38,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
 	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
 
-    FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
+	FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
 
 	return true;
 }
@@ -58,7 +58,7 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-    std::string ename = event->GetName();
+	std::string ename = event->GetName();
 	if (event && FireEventMap.count(ename)) {
 	    (g_GoPrismPlugin.*FireEventMap[ename])(event);
 	}
