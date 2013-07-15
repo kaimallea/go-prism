@@ -71,21 +71,21 @@ void GoPrismPlugin::OnPlayerDeath(IGameEvent *event)
     META_CONPRINTF("player_death fired: victim = %d, attacker = %d\n", event->GetInt("userid"), event->GetInt("attacker"));
 }
 
-void OnBombBeginPlant(IGameEvent *event) {}
+void GoPrismPlugin::OnBombBeginPlant(IGameEvent *event) {}
 
-void OnBombPlanted(IGameEvent *event) {}
+void GoPrismPlugin::OnBombPlanted(IGameEvent *event) {}
 
-void OnBombDefused(IGameEvent *event) {}
+void GoPrismPlugin::OnBombDefused(IGameEvent *event) {}
 
-void OnBombExploded(IGameEvent *event) {}
+void GoPrismPlugin::OnBombExploded(IGameEvent *event) {}
 
-void OnBombBeginDefuse(IGameEvent *event) {}
+void GoPrismPlugin::OnBombBeginDefuse(IGameEvent *event) {}
 
-void OnBombAbortDefuse(IGameEvent *event) {}
+void GoPrismPlugin::OnBombAbortDefuse(IGameEvent *event) {}
 
 void GoPrismPlugin::AllPluginsLoaded()
 {
-	/* This is where we'd do stuff that relies on the mod or other plugins 
+	/* This is where we'd do stuff that relies on the mod or other plugins
 	 * being initialized (for example, cvars added and events registered).
 	 */
 }
