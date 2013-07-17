@@ -1,2 +1,5 @@
 libtier0.so
+libtier0.dylib
 libvstdlib.so
+libvstdlib.dylib
+Release.csgo/
