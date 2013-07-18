@@ -179,6 +179,8 @@ $(BIN_DIR)/%.o: %.cpp
 	$(CPP) $(INCLUDE) $(CFLAGS) -o $@ -c $<
 
 all: check
+	git submodule init
+	git submodule update
 	mkdir -p $(BIN_DIR)
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)vstdlib$(LIB_SUFFIX)
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)tier0$(LIB_SUFFIX)
