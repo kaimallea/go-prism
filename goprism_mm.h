@@ -29,6 +29,7 @@ public:
 	void AllPluginsLoaded();
 public:
 	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
+	void Hook_ClientPutInServer(edict_t *pEntity, char const *playername);
 	bool Hook_FireEvent(IGameEvent *event, bool bDontBroadcast);
 public:
 	void OnPlayerDeath(IGameEvent *event);
