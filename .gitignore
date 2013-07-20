@@ -1,5 +1,11 @@
+# Linked libs
 libtier0.so
 libtier0.dylib
 libvstdlib.so
 libvstdlib.dylib
+
+# Compiled plugin folder
 Release.csgo/
+
+# Netbeans project folder
+nbproject/
