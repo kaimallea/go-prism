@@ -11,12 +11,14 @@
 #include "goprism_mm.h"
 
 SH_DECL_HOOK3_void(IServerGameDLL, ServerActivate, SH_NOATTRIB, 0, edict_t *, int, int);
+SH_DECL_HOOK2_void(IServerGameClients, ClientPutInServer, SH_NOATTRIB, 0, edict_t *, char const *);
 SH_DECL_HOOK2(IGameEventManager2, FireEvent, SH_NOATTRIB, 0, bool, IGameEvent *, bool);
 
 GoPrismPlugin g_GoPrismPlugin;
 IVEngineServer *engine = NULL;
 IGameEventManager2 *gameevents = NULL;
 IServerGameDLL *server = NULL;
+IServerGameClients *gameclients = NULL;
 IPlayerInfoManager *playerinfomanager = NULL;
 CGlobalVars *gpGlobals = NULL;
 event_map_t FireEventMap;
@@ -29,6 +31,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 	GET_V_IFACE_CURRENT(GetEngineFactory, engine, IVEngineServer, INTERFACEVERSION_VENGINESERVER);
 	GET_V_IFACE_CURRENT(GetEngineFactory, gameevents, IGameEventManager2, INTERFACEVERSION_GAMEEVENTSMANAGER2);
 	GET_V_IFACE_ANY(GetServerFactory, server, IServerGameDLL, INTERFACEVERSION_SERVERGAMEDLL);
+	GET_V_IFACE_ANY(GetServerFactory, gameclients, IServerGameClients, INTERFACEVERSION_SERVERGAMECLIENTS);
 	GET_V_IFACE_ANY(GetServerFactory, playerinfomanager, IPlayerInfoManager, INTERFACEVERSION_PLAYERINFOMANAGER);
 
 	gpGlobals = ismm->GetCGlobals();
