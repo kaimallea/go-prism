@@ -19,7 +19,7 @@ MMSOURCE19 = mmsource-1.9
 #####################################
 
 PROJECT = goprism_mm
-OBJECTS = goprism_mm.cpp
+OBJECTS = goprism_mm.cpp playerlist.cpp
 
 ##############################################
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###
