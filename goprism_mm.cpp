@@ -67,8 +67,12 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 void GoPrismPlugin::Hook_ClientPutInServer(edict_t *pEntity, char const *playername)
 {
-	Player *player = new Player(playerinfomanager->GetPlayerInfo(pEntity));
-	this->Players->AddPlayer(player);
+	if (!playerinfomanager->GetPlayerInfo(pEntity)->IsHLTV() &&
+		!playerinfomanager->GetPlayerInfo(pEntity)->IsObserver()) {
+		Player *player = new Player(playerinfomanager->GetPlayerInfo(pEntity));
+		this->Players->AddPlayer(player);
+		META_CONPRINTF("\nGOPRISM: Added %s\n\n", playerinfomanager->GetPlayerInfo(pEntity)->GetName());
+	}
 }
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
