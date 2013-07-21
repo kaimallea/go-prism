@@ -44,6 +44,8 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 
 	FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
 
+	this->PlayerNames = new PlayerList;
+
 	return true;
 }
 
@@ -52,6 +54,8 @@ bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 	SH_REMOVE_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
 	SH_REMOVE_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &GoPrismPlugin::Hook_ClientPutInServer), true);
 	SH_REMOVE_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
+
+	delete this->PlayerNames;
 
 	return true;
 }
@@ -63,6 +67,8 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 void GoPrismPlugin::Hook_ClientPutInServer(edict_t *pEntity, char const *playername)
 {
+	Player *player = new Player(playerinfomanager->GetPlayerInfo(pEntity));
+	this->PlayerNames->AddPlayer(player);
 }
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)

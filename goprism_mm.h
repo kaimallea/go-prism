@@ -63,6 +63,8 @@ public:
 	const char *GetVersion();
 	const char *GetDate();
 	const char *GetLogTag();
+public:
+	PlayerList *PlayerNames;
 };
 
 extern GoPrismPlugin g_GoPrismPlugin;
