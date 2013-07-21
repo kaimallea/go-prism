@@ -13,7 +13,9 @@
 #include <ISmmPlugin.h>
 #include <igameevents.h>
 #include <iplayerinfo.h>
+
 #include "eventmap.h"
+#include "playerlist.h"
 
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
