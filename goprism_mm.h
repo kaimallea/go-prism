@@ -19,6 +19,19 @@
 #define snprintf _snprintf
 #endif
 
+class Player {
+public:
+	Player(IPlayerInfo *p);
+	~Player();
+public:
+	int kills, deaths;
+	IPlayerInfo *playerinfo;
+};
+
+Player::Player(IPlayerInfo *p) { playerinfo = p; }
+Player::~Player() { delete playerinfo; }
+
+
 class GoPrismPlugin : public ISmmPlugin
 {
 public:
