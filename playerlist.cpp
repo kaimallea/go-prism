@@ -9,17 +9,17 @@
 #include "playerlist.h"
 
 PlayerList::PlayerList() {
-	player_vect = new std::vector<Player *>;
+	player_vect = new std::vector<IPlayerInfo *>;
 }
 
 PlayerList::~PlayerList() {
 	delete [] player_vect;
 }
 
-void PlayerList::AddPlayer(Player *p) {
+void PlayerList::AddPlayer(IPlayerInfo *p) {
 	player_vect->push_back(p);
 }
 
-std::vector<Player>::size_type PlayerList::Length() {
+std::vector<IPlayerInfo *>::size_type PlayerList::Length() {
 	return player_vect->size();
 }
