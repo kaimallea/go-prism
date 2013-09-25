@@ -13,7 +13,9 @@ PlayerList::PlayerList() {
 }
 
 PlayerList::~PlayerList() {
-	delete [] player_vect;
+	std::vector<IPlayerInfo *>::iterator it;
+	for (it = player_vect->begin(); it != player_vect->end(); it++)
+		delete *it;
 }
 
 void PlayerList::AddPlayer(IPlayerInfo *p) {
