@@ -39,7 +39,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 	META_LOG(g_PLAPI, "Starting plugin.");
 
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
-	SH_ADD_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &GoPrismPlugin::Hook_ClientPutInServer), true);			;
+	SH_ADD_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &GoPrismPlugin::Hook_ClientPutInServer), true);
 	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
 
 	FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
