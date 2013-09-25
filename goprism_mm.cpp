@@ -69,8 +69,10 @@ void GoPrismPlugin::Hook_ClientPutInServer(edict_t *pEntity, char const *playern
 {
 	if (!playerinfomanager->GetPlayerInfo(pEntity)->IsHLTV() &&
 		!playerinfomanager->GetPlayerInfo(pEntity)->IsObserver()) {
-		this->Players->AddPlayer(playerinfomanager->GetPlayerInfo(pEntity));
-		META_CONPRINTF("\nGOPRISM: Added %s\n\n", playerinfomanager->GetPlayerInfo(pEntity)->GetName());
+
+		IPlayerInfo *pInfo = playerinfomanager->GetPlayerInfo(pEntity);
+		this->Players->AddPlayer(pInfo);
+		META_CONPRINTF("\nGOPRISM: Added %s\n\n", pInfo->GetName());
 	}
 }
 
