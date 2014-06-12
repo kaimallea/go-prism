@@ -16,4 +16,4 @@ RUN adduser \
 
 USER developer
 
-ENTRYPOINT ['/bin/bash']
+ENTRYPOINT /bin/bash
