@@ -12,7 +12,7 @@ HL2SDK_OB_VALVE = hl2sdk-ob-valve
 HL2SDK_L4D = hl2sdk-l4d
 HL2SDK_L4D2 = hl2sdk-l4d2
 HL2SDK_CSGO = hl2sdk-csgo
-MMSOURCE19 = mmsource-1.9
+MMSOURCE = metamod-source
 
 #####################################
 ### EDIT BELOW FOR OTHER PROJECTS ###
@@ -27,7 +27,7 @@ OBJECTS = goprism_mm.cpp playerlist.cpp
 
 ENGINE = csgo
 OPT_FLAGS = -O3 -funroll-loops -pipe
-GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden
+GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden -Wno-unused-local-typedefs
 DEBUG_FLAGS = -g -ggdb3 -D_DEBUG
 CPP = gcc
 CPP_OSX = clang
@@ -76,10 +76,10 @@ HL2PUB = $(HL2SDK)/public
 
 ifeq "$(ENGINE)" "original"
 	INCLUDE += -I$(HL2SDK)/public/dlls
-	METAMOD = $(MMSOURCE19)/core-legacy
+	METAMOD = $(MMSOURCE)/core-legacy
 else
 	INCLUDE += -I$(HL2SDK)/public/game/server
-	METAMOD = $(MMSOURCE19)/core
+	METAMOD = $(MMSOURCE)/core
 endif
 
 OS := $(shell uname -s)
@@ -184,7 +184,7 @@ all: check
 	mkdir -p $(BIN_DIR)
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)vstdlib$(LIB_SUFFIX)
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)tier0$(LIB_SUFFIX)
-	$(MAKE) -f Makefile stub_mm
+	$(MAKE) -f Makefile go_prism
 	
 check:
 	if [ "$(ENGSET)" = "false" ]; then \
@@ -193,7 +193,7 @@ check:
 		exit 1; \
 	fi
 
-stub_mm: check $(OBJ_BIN)
+go_prism: check $(OBJ_BIN)
 	$(CPP) $(INCLUDE) -m32 $(OBJ_BIN) $(LINK) -ldl -lm -o $(BIN_DIR)/$(BINARY)
 
 default: all
