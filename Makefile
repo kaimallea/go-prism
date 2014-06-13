@@ -27,7 +27,7 @@ OBJECTS = goprism_mm.cpp playerlist.cpp
 
 ENGINE = csgo
 OPT_FLAGS = -O3 -funroll-loops -pipe
-GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden -Wno-unused-local-typedefs
+GCC4_FLAGS = -fvisibility=hidden -fvisibility-inlines-hidden
 DEBUG_FLAGS = -g -ggdb3 -D_DEBUG
 CPP = gcc
 CPP_OSX = clang
@@ -168,6 +168,11 @@ ifeq "$(shell expr $(IS_CLANG) \& $(CPP_MAJOR) \>= 3 \| $(CPP_MAJOR) \>= 4 \& $(
 	CFLAGS += -Wno-delete-non-virtual-dtor -Wno-unused-private-field
 endif
 
+# GCC >= 4.8
+ifeq "$(shell expr $(CPP_MAJOR) \>= 4 \& $(CPP_MINOR) \>= 8)" "1"
+	CFLAGS += -Wno-unused-local-typedefs
+endif
+
 # OS is Linux and not using clang
 ifeq "$(shell expr $(OS) \= Linux \& $(IS_CLANG) \= 0)" "1"
 	LINK += -static-libgcc
@@ -185,7 +190,7 @@ all: check
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)vstdlib$(LIB_SUFFIX)
 	ln -sf $(HL2LIB)/$(LIB_PREFIX)tier0$(LIB_SUFFIX)
 	$(MAKE) -f Makefile go_prism
-	
+
 check:
 	if [ "$(ENGSET)" = "false" ]; then \
 		echo "You must supply one of the following values for ENGINE:"; \
