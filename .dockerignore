@@ -1,0 +1,13 @@
+.git
+*.h
+*.cpp
+*.vdf
+*.dylib
+*.dll
+*.so
+lib*
+Makefile
+README*
+Release.csgo
+hl2sdk-csgo
+metamod-source
