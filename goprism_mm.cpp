@@ -21,7 +21,6 @@ IServerGameDLL *server = NULL;
 IServerGameClients *gameclients = NULL;
 IPlayerInfoManager *playerinfomanager = NULL;
 CGlobalVars *gpGlobals = NULL;
-event_map_t FireEventMap;
 
 PLUGIN_EXPOSE(GoPrismPlugin, g_GoPrismPlugin);
 bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen, bool late)
@@ -39,12 +38,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 	META_LOG(g_PLAPI, "Starting plugin.");
 
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
-	SH_ADD_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &GoPrismPlugin::Hook_ClientPutInServer), true);
 	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
-
-	FireEventMap["player_death"] = &GoPrismPlugin::OnPlayerDeath;
-
-	this->Players = new PlayerList;
 
 	return true;
 }
@@ -52,10 +46,7 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 {
 	SH_REMOVE_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
-	SH_REMOVE_HOOK(IServerGameClients, ClientPutInServer, gameclients, SH_MEMBER(this, &GoPrismPlugin::Hook_ClientPutInServer), true);
 	SH_REMOVE_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
-
-	delete this->Players;
 
 	return true;
 }
@@ -65,42 +56,10 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 	META_LOG(g_PLAPI, "ServerActivate() called: edictCount = %d, clientMax = %d", edictCount, clientMax);
 }
 
-void GoPrismPlugin::Hook_ClientPutInServer(edict_t *pEntity, char const *playername)
-{
-	if (!playerinfomanager->GetPlayerInfo(pEntity)->IsHLTV() &&
-		!playerinfomanager->GetPlayerInfo(pEntity)->IsObserver()) {
-
-		IPlayerInfo *pInfo = playerinfomanager->GetPlayerInfo(pEntity);
-		this->Players->AddPlayer(pInfo);
-		META_CONPRINTF("\nGOPRISM: Added %s\n\n", pInfo->GetName());
-	}
-}
-
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-	if (event && FireEventMap.count(event->GetName())) {
-	    (g_GoPrismPlugin.*FireEventMap[event->GetName()])(event);
-	}
-
 	RETURN_META_VALUE(MRES_IGNORED, true);
 }
-
-void GoPrismPlugin::OnPlayerDeath(IGameEvent *event)
-{
-    META_CONPRINTF("player_death fired: victim = %d, attacker = %d\n", event->GetInt("userid"), event->GetInt("attacker"));
-}
-
-void GoPrismPlugin::OnBombBeginPlant(IGameEvent *event) {}
-
-void GoPrismPlugin::OnBombPlanted(IGameEvent *event) {}
-
-void GoPrismPlugin::OnBombDefused(IGameEvent *event) {}
-
-void GoPrismPlugin::OnBombExploded(IGameEvent *event) {}
-
-void GoPrismPlugin::OnBombBeginDefuse(IGameEvent *event) {}
-
-void GoPrismPlugin::OnBombAbortDefuse(IGameEvent *event) {}
 
 void GoPrismPlugin::AllPluginsLoaded()
 {

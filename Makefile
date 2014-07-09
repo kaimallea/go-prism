@@ -19,7 +19,7 @@ MMSOURCE = metamod-source
 #####################################
 
 PROJECT = goprism_mm
-OBJECTS = goprism_mm.cpp playerlist.cpp
+OBJECTS = goprism_mm.cpp
 
 ##############################################
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###

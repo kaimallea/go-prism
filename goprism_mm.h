@@ -14,9 +14,6 @@
 #include <igameevents.h>
 #include <iplayerinfo.h>
 
-#include "eventmap.h"
-#include "playerlist.h"
-
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
 #endif
@@ -31,16 +28,7 @@ public:
 	void AllPluginsLoaded();
 public:
 	void Hook_ServerActivate(edict_t *pEdictList, int edictCount, int clientMax);
-	void Hook_ClientPutInServer(edict_t *pEntity, char const *playername);
 	bool Hook_FireEvent(IGameEvent *event, bool bDontBroadcast);
-public:
-	void OnPlayerDeath(IGameEvent *event);
-	void OnBombBeginPlant(IGameEvent *event);
-	void OnBombPlanted(IGameEvent *event);
-	void OnBombDefused(IGameEvent *event);
-	void OnBombExploded(IGameEvent *event);
-	void OnBombBeginDefuse(IGameEvent *event);
-	void OnBombAbortDefuse(IGameEvent *event);
 public:
 	const char *GetAuthor();
 	const char *GetName();
@@ -50,8 +38,6 @@ public:
 	const char *GetVersion();
 	const char *GetDate();
 	const char *GetLogTag();
-public:
-	PlayerList *Players;
 };
 
 extern GoPrismPlugin g_GoPrismPlugin;
