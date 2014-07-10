@@ -60,7 +60,7 @@ bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
         // Log the name of all fired events
         // Very spammy; For testing purposes only
-        META_LOG(g_PLAPI, "FireEvent: %s", event->GetName());
+        META_CONPRINTF("FireEvent:\t%s\n", event->GetName());
 
         RETURN_META_VALUE(MRES_IGNORED, true);
 }
