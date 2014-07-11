@@ -14,7 +14,6 @@
 #include <igameevents.h>
 #include <iplayerinfo.h>
 #include <map>
-#include <string>
 
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
@@ -41,7 +40,8 @@ public:
 	const char *GetDate();
 	const char *GetLogTag();
 public:
-        static std::map<std::string, unsigned int> *EventDict;
+        std::map<const char *, int> EventDict;
+            
 };
 
 extern GoPrismPlugin g_GoPrismPlugin;

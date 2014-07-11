@@ -37,8 +37,6 @@ bool GoPrismPlugin::Load(PluginId id, ISmmAPI *ismm, char *error, size_t maxlen,
 
 	META_LOG(g_PLAPI, "Starting plugin.");
 
-        EventDict = new std::map<std::string, unsigned int>;
-
 	SH_ADD_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
 	SH_ADD_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
 
@@ -50,8 +48,6 @@ bool GoPrismPlugin::Unload(char *error, size_t maxlen)
 	SH_REMOVE_HOOK(IServerGameDLL, ServerActivate, server, SH_MEMBER(this, &GoPrismPlugin::Hook_ServerActivate), true);
 	SH_REMOVE_HOOK(IGameEventManager2, FireEvent, gameevents, SH_MEMBER(this, &GoPrismPlugin::Hook_FireEvent), false);
 
-        delete EventDict;
-
 	return true;
 }
 
@@ -62,20 +58,24 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-        std::string eventName = event->GetName();
+        const char *eventName = event->GetName();
     
         // Keep track of the # of times an
         // event was seen
-        if (EventDict->count(eventName)) {
-            (*EventDict)[eventName] += 1;
+        if (EventDict.count(eventName)) {
+            EventDict[eventName] += 1;
         } else {
-            // Stor
-            (*EventDict)[eventName] = 1;
+            EventDict[eventName] = 1;
         }
 
-        // Log the name of all fired events
+        // Log the name of all fired events at round_end
         // Very spammy; For testing purposes only
-        //META_CONPRINTF("FireEvent:\t%s\n", eventName);
+        if (strcmp(eventName, "round_end") == 0) {
+            std::map<const char *, int>::iterator iter;
+            for (iter = EventDict.begin(); iter != EventDict.end(); iter++) {
+                META_CONPRINTF("\nGOPRISM: %s = %d", iter->first, iter->second);
+            }
+        }
 
         RETURN_META_VALUE(MRES_IGNORED, true);
 }
