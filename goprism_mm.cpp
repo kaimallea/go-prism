@@ -58,7 +58,26 @@ void GoPrismPlugin::Hook_ServerActivate(edict_t *pEdictList, int edictCount, int
 
 bool GoPrismPlugin::Hook_FireEvent(IGameEvent *event, bool bDontBroadcast)
 {
-	RETURN_META_VALUE(MRES_IGNORED, true);
+        const char *eventName = event->GetName();
+    
+        // Keep track of the # of times an
+        // event was seen
+        if (EventDict.count(eventName)) {
+            EventDict[eventName] += 1;
+        } else {
+            EventDict[eventName] = 1;
+        }
+
+        // Log the name of all fired events at round_end
+        // Very spammy; For testing purposes only
+        if (strcmp(eventName, "round_end") == 0) {
+            std::map<const char *, int>::iterator iter;
+            for (iter = EventDict.begin(); iter != EventDict.end(); iter++) {
+                META_CONPRINTF("\nGOPRISM: %s = %d", iter->first, iter->second);
+            }
+        }
+
+        RETURN_META_VALUE(MRES_IGNORED, true);
 }
 
 void GoPrismPlugin::AllPluginsLoaded()

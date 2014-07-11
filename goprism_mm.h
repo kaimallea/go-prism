@@ -13,6 +13,7 @@
 #include <ISmmPlugin.h>
 #include <igameevents.h>
 #include <iplayerinfo.h>
+#include <map>
 
 #if defined WIN32 && !defined snprintf
 #define snprintf _snprintf
@@ -38,6 +39,9 @@ public:
 	const char *GetVersion();
 	const char *GetDate();
 	const char *GetLogTag();
+public:
+        std::map<const char *, int> EventDict;
+            
 };
 
 extern GoPrismPlugin g_GoPrismPlugin;
