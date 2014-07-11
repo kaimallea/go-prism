@@ -9,3 +9,6 @@ Release.csgo/
 
 # Netbeans project folder
 nbproject/
+
+# Vagrant folder
+.vagrant/

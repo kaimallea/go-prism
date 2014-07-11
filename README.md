@@ -5,26 +5,30 @@ Capture CS:GO gameplay data for analysis
 
 ## Building
 
-If you're on a 64-bit machine, you'll need to install the proper libc includes for 32-bit builds, as well as the C/C++ compilers with multilib support.
+If you're on a 64-bit machine you'll need to install C/C++ compilers with multilib support.
 
 #### Debian/Ubuntu:
 
 ```
-sudo apt-get install build-essential libc6-dev-i386 gcc-4.8-multilib g++-4.8-multilib
+$ sudo apt-get install build-essential gcc-multilib g++-multilib
 ```
 
-#### Docker:
+You might also need to install the libc includes for 32-bit builds: `libc6-dev-i386`.
 
-Use the included `Dockerfile` to build a docker image with the build tools necessary for compiling go-prism.
+#### Vagrant:
 
-```
-docker build -t <username>/<imagename> .
-```
-
-Then you can easily create a container to test compilation. The example below also makes the source code (assuming working dir) available in the container at `/src`:
+Use the included `Vagrantfile` to build a VM with the build tools necessary for compiling go-prism.
 
 ```
-docker run -i -t -v $(pwd):/src <username>/<imagename>
+$ vagrant up
+```
+
+Then you can easily access the VM and compile the code:
+
+```
+$ vagrant ssh
+$ cd /vagrant
+$ make
 ```
 
 ### Compiling
